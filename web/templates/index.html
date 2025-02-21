@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Joystick Control Panel</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Joystick Control Panel</h1>
+
+        <!-- Formulář pro nastavení sériového portu -->
+        <div class="port-setting">
+            <h2>Set Serial Port</h2>
+            <form action="/set_port" method="POST">
+                <label for="port">Select Serial Port:</label>
+                <select id="port" name="port" required>
+                    {% for port in ports %}
+                    <option value="{{ port }}">{{ port }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Set Port">
+            </form>
+        </div>
+
+        <!-- Přepínač pro zobrazení/skrytí joysticku -->
+        <div class="toggle-container">
+            <label for="toggle-joystick" id="mode-label">Manuální ovládání</label>
+            <input type="checkbox" id="toggle-joystick" checked class="switch">
+        </div>
+
+        <!-- Ovládací panel joysticku -->
+        <div class="joystick" id="joystick">
+            <button class="up-button" onmousedown="startMoving('forward')" onmouseup="stopMoving()">&#9650;</button>
+            <button class="left-button" onmousedown="startMoving('left')" onmouseup="stopMoving()">&#9664;</button>
+            <button class="right-button" onmousedown="startMoving('right')" onmouseup="stopMoving()">&#9654;</button>
+            <button class="down-button" onmousedown="startMoving('back')" onmouseup="stopMoving()">&#9660;</button>
+            <button class="center-button" onclick="stopMoving()">Stop</button>
+        </div>
+
+        <!-- Video container -->
+        <div class="video-container">
+            <h2>Live Camera Feed</h2>
+            <img src="{{ url_for('video_feed') }}" alt="Live Camera Feed" width="400">
+        </div>
+    </div>
+
+    <script>
+        let moveInterval;
+
+        // Funkce pro start pohybu
+        function startMoving(direction) {
+            move(direction);
+            moveInterval = setInterval(() => {
+                move(direction);
+            }, 100);
+        }
+
+        // Funkce pro zastavení pohybu
+        function stopMoving() {
+            clearInterval(moveInterval);
+            move('stop');
+        }
+
+        // Funkce pro pohyb
+        function move(direction) {
+            fetch('/' + direction)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with your fetch operation:', error);
+                });
+        }
+
+        // Funkce pro přepnutí zobrazení joysticku a změnu textu
+        document.getElementById("toggle-joystick").addEventListener("change", function() {
+            const joystick = document.getElementById("joystick");
+            const modeLabel = document.getElementById("mode-label");
+            const mode = this.checked ? "manual" : "automatic";
+        
+            if (this.checked) {
+                joystick.style.display = "grid";
+                modeLabel.textContent = "Manuální ovládání";
+            } else {
+                joystick.style.display = "none";
+                modeLabel.textContent = "Automatické ovládání";
+            }
+        
+            // Odeslání režimu na server
+            fetch('/set_mode', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ mode: mode })
+            })
+            .then(response => response.json())
+            .then(data => console.log("Server response:", data))
+            .catch(error => console.error('Chyba při odesílání režimu:', error));
+        });
+        
+    </script>
+    <footer>
+        <p>&copy; </p>
+        <p>Contact: <a href="mailto:you@example.com">eliasladik@gmail.com</a></p>
+        <a href="https://github.com/eliasladik" target="_blank">Dokumentace projektu.</a> 
+    </footer>
+</body>
+</html>

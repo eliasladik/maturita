@@ -1,0 +1,215 @@
+/* Celkové nastavení */
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    background-color: #111; /* Černé pozadí */
+    margin: 0;
+    padding: 0;
+    color: #F9A825; /* Žlutá barva pro text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Výška celého okna pro vertikální zarovnání */
+}
+
+/* Kontejner pro obsah */
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #333; /* Tmavě šedý/černý pozadí pro obsah */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Titulek */
+h1 {
+    font-size: 2.5em;
+    margin-top: 0;
+    color: #F9A825; /* Žlutý text pro titul */
+    font-weight: bold;
+}
+
+/* Styl pro přepínač a jeho label */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horizontálně centrovaný obsah */
+    margin: 20px 0;
+    font-size: 1.2em;
+    color: #F9A825; /* Žlutý text pro popisky */
+}
+
+.toggle-container label {
+    margin-right: 10px;
+}
+
+.switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #ccc;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.switch:checked {
+    background-color: #F9A825; /* Žlutá, když je přepínač zapnutý */
+}
+
+.switch:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.switch:checked:before {
+    transform: translateX(30px); /* Pohyb bílého kolečka při zapnutí */
+}
+
+/* Formulář pro výběr sériového portu */
+.port-setting {
+    margin: 20px 0;
+}
+
+.port-setting select {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #333;
+    color: #F9A825;
+    border: 1px solid #F9A825;
+    border-radius: 5px;
+    width: 250px;
+    cursor: pointer;
+}
+
+.port-setting input[type="submit"] {
+    background-color: #F9A825;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.port-setting input[type="submit"]:hover {
+    background-color: #FFB300; /* Světlejší žlutá při hover */
+}
+
+/* Ovládací panel joysticku */
+.joystick {
+    display: grid; /* Počátečně viditelný */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 15px;
+    justify-items: center;  /* Vycentrování tlačítek */
+    align-items: center;    /* Vycentrování tlačítek */
+    width: 300px;
+    height: 300px;
+    border: 3px solid #F9A825; /* Žlutý rámeček pro joystick */
+    border-radius: 15px;
+    padding: 15px;
+    margin: 30px auto;
+    background-color: #222; /* Tmavé pozadí pro joystick */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;  /* Plynulý přechod */
+}
+
+/* Styl pro tlačítka joysticku */
+.joystick button {
+    width: 80px;
+    height: 80px;
+    font-size: 18px;
+    color: #FFF; /* Bílý text na tlačítkách */
+    background-color: #F9A825; /* Žlutá tlačítka */
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+.joystick button:hover {
+    background-color: #FFB300; /* Světlejší žlutá na hover */
+}
+
+.joystick button:active {
+    background-color: #FF8F00; /* Tmavší žlutá při stisknutí */
+    transform: scale(0.95);
+}
+
+/* Rozložení tlačítek na joysticku */
+.center-button {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.up-button {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.down-button {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.left-button {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.right-button {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+/* Video container */
+.video-container {
+    margin-top: 20px;
+}
+
+.video-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #f9e725; /* Žlutý text pro nadpis videa */
+    font-weight: 600;
+}
+
+.video-container img {
+    width: 60%;
+    max-width: 600px;
+    border: 3px solid #F9A825; /* Žlutý rámeček kolem videa */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+    background-color: #333;
+    color: #f9f9f9;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer p, footer a {
+    color: #f9f9f9;
+    margin: 5px 0;
+    font-size: 0.9em;
+    text-decoration: none;
+}

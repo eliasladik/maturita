@@ -1,0 +1,8 @@
+zde si pisu co bych chtel dodelat jeste:
+
+dulezite prikazy:   pip install pyserial
+                    pip install Flask
+
+
+
+
